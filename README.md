@@ -24,6 +24,59 @@
 
 ## Description
 
+## [Configuration](https://docs.nestjs.com/techniques/configuration)
+
+```bash
+npm i --save @nestjs/config
+```
+
+## [Prisma](https://docs.nestjs.com/recipes/prisma)
+
+```bash
+npm install prisma --save-dev
+```
+
+```bash
+npx prisma init
+```
+
+## Migraciones
+
+```bash
+npx prisma migrate dev --name init
+```
+
+Esto podría mostrar un error como el siguiente
+
+```bash
+Error: P3014
+
+Prisma Migrate could not create the shadow database. Please make sure the database user has permission to create databases. Read more about the shadow database (and workarounds) at https://pris.ly/d/migrate-shadow
+
+Original error: Error code: P1010
+
+User `cursos` was denied access on the database `nest_1`
+```
+
+Si tenemos un usuario sin permiso de crear bases de datos podemos crear la base de datos de forma manual, asignar los permisos
+y ejecutar lo siguiente
+
+```bash
+npx prisma db push
+```
+
+## Crear controlador
+```bash
+nest g co controladores/contactos
+```
+
+## Crear servicio
+```--flat``` permite que no se cree dentro de un directorio
+```bash
+nest g s services/contactos --flat
+```
+---
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Project setup
