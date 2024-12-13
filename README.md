@@ -1,3 +1,9 @@
+## Migraciones
+
+```sh
+npx prisma db push
+```
+
 ## [slugify](https://www.npmjs.com/package/slugify)
 
 ```sh
