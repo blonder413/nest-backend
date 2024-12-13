@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -41,5 +42,11 @@ export class ContactosController {
   @UsePipes(new ValidationPipe())
   update(@Param() param, @Body() dto: ContactoDto) {
     return this.contactoService.update(parseInt(param.id), dto);
+  }
+
+  @Delete('/:id')
+  @HttpCode(HttpStatus.OK)
+  destroy(@Param() param) {
+    return this.contactoService.destroy(parseInt(param.id));
   }
 }

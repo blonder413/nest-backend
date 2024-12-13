@@ -71,4 +71,19 @@ export class ContactosService {
     });
     return { estado: 'ok', mensaje: 'Modificado exitosamente' };
   }
+
+  async destroy(id: number) {
+    const dato = await this.prisma.contacto.findFirst({
+      where: { id },
+    });
+
+    if (!dato) {
+      throw new HttpException(
+        { estado: 'error', mensaje: 'No existe' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    this.prisma.contacto.delete({ where: { id } });
+    return { estado: 'ok', mensaje: 'Eliminado exitosamente' };
+  }
 }
