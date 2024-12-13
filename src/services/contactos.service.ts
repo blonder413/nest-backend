@@ -30,7 +30,7 @@ export class ContactosService {
     const existe = await this.prisma.contacto.findFirst({
       where: { correo: dto.correo },
     });
-    
+
     if (existe) {
       throw new HttpException(
         { estado: 'error', mensaje: 'Ya existe' },
@@ -46,5 +46,29 @@ export class ContactosService {
       },
     });
     return { estado: 'ok', mensaje: 'Creado exitosamente' };
+  }
+
+  async update(id: number, dto: ContactoDto) {
+    const dato = await this.prisma.contacto.findFirst({
+      where: { id },
+    });
+
+    if (!dato) {
+      throw new HttpException(
+        { estado: 'error', mensaje: 'No existe' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    await this.prisma.contacto.update({
+      where: { id },
+      data: {
+        nombre: dto.nombre,
+        correo: dto.correo,
+        telefono: dto.telefono,
+        slug: slugify(dto.nombre.toLowerCase()),
+      },
+    });
+    return { estado: 'ok', mensaje: 'Modificado exitosamente' };
   }
 }

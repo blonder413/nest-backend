@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -33,5 +34,12 @@ export class ContactosController {
   @UsePipes(new ValidationPipe())
   create(@Body() dto: ContactoDto) {
     return this.contactoService.create(dto);
+  }
+
+  @Put('/:id')
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(new ValidationPipe())
+  update(@Param() param, @Body() dto: ContactoDto) {
+    return this.contactoService.update(parseInt(param.id), dto);
   }
 }
